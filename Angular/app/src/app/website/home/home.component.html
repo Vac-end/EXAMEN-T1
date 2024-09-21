@@ -1,0 +1,124 @@
+<div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">Gestión de Cajeros</h1>
+  
+    <!-- Mostrar mensajes de error y éxito 
+    <div *ngIf="errorMessage" class="bg-red-500 text-white p-2 mb-4">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="bg-green-500 text-white p-2 mb-4">{{ successMessage }}</div>
+  -->
+    <!-- Formulario para registrar o modificar un cajero -->
+    <button (click)="OpenModalButton()" class="bg-green-700 hover:bg-green-900 p-4 text-white cursor-pointer rounded-lg">CREAR CAJERO</button>
+     @if (openmodal) {
+        <div class="fixed inset-0 z-50 overflow-y-auto">
+            <div class="relative flex items-center justify-center min-h-screen p-4">
+                
+                <div class="relative bg-white rounded-lg shadow max-w-2xl w-full">
+                    <div class="flex justify-end w-full">
+                        <div class="bg-red-700 hover:bg-red-900 p-4 text-white cursor-pointer rounded-lg w-fit" (click)="CloseModalButton()">CERRAR</div>
+                    </div>
+                    <form  class="bg-gray-500 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                        <div class="mb-4">
+                          <label class="block text-gray-700 text-sm font-bold mb-2" for="documento">
+                            Documento de Identidad
+                          </label>
+                          <input type="text" id="documento" [(ngModel)]="cajero.documento" name="documento" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        </div>
+                        <div class="mb-4">
+                          <label class="block text-gray-700 text-sm font-bold mb-2" for="nombres">
+                            Nombres
+                          </label>
+                          <input type="text" id="nombres" [(ngModel)]="cajero.nombre" name="nombres" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        </div>
+                        <div class="mb-4">
+                          <label class="block text-gray-700 text-sm font-bold mb-2" for="domicilio">
+                            Domicilio
+                          </label>
+                          <input type="text" id="domicilio" [(ngModel)]="cajero.domicilio" name="domicilio" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        </div>
+                        <div class="mb-4">
+                          <label class="block text-gray-700 text-sm font-bold mb-2" for="telefono">
+                            Teléfono
+                          </label>
+                          <input type="text" id="telefono" [(ngModel)]="cajero.telefono" name="telefono" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        </div>
+                        <div class="mb-4">
+                          <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                            Email
+                          </label>
+                          <input type="email" id="email" [(ngModel)]="cajero.email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        </div>
+                        <div>
+                            <select name="estado" id="estado"  [(ngModel)]="cajero.estado" class="border-solid">
+                                <option value="ACTIVO" >ACTIVO</option>
+                                <option value="INACTIVO">INACTIVO</option>
+                            </select>
+                        </div>
+                        <button (click)="registrarCajero()" type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                          Registrar Cajero
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+         </div>
+     }
+     
+    
+  
+    <!-- Lista de cajeros registrados 
+    <h2 class="text-2xl font-bold mb-4">Cajeros Registrados</h2>
+    <ul class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <li *ngFor="let cajero of cajeros" class="border-b border-gray-200 py-4">
+        {{ cajero.nombres }} {{ cajero.apellidos }} - {{ cajero.documento }}
+        <button (click)="darDeBaja(cajero.id)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4">
+          Dar de Baja
+        </button>
+        <button (click)="restaurarCajero(cajero.id)" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4">
+          Restaurar
+        </button>
+      </li>
+    </ul>
+-->
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left text-gray-500 ">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3">DOCUMENTO</th>
+                    <th scope="col" class="px-6 py-3">NOMBRE</th>
+                    <th scope="col" class="px-6 py-3">DOMICILIO</th>
+                    <th scope="col" class="px-6 py-3">TELEFONO</th>
+                    <th scope="col" class="px-6 py-3">EMAIL</th>
+                    <th scope="col" class="px-6 py-3">ESTADO</th>
+                    <th scope="col" class="px-6 py-3">ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (cajero of cajeros; track $index) {
+                    <tr class="bg-white border-d hover:bg-gray-50">
+                        <td class="px-6 py-4">{{cajero.documento}}</td>
+                        <td class="px-6 py-4">{{cajero.nombre}}</td>
+                        <td class="px-6 py-4">{{cajero.domicilio}}</td>
+                        <td class="px-6 py-4">{{cajero.telefono}}</td>
+                        <td class="px-6 py-4">{{cajero.email}}</td>
+                        <td class="px-6 py-4">{{cajero.estado}}</td>
+                        <td class="px-6 py-4 flex flex-row gap-2">
+                            <button (click)="darDeBaja(cajero.id)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4">
+                                Bajar
+                              </button>
+                              <button (click)="restaurarCajero(cajero.id)" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4">
+                                Restaurar
+                              </button>
+                            <button (click)="Editar(cajero)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4">
+                                Editar
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+  </div>
+  
